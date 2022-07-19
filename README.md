@@ -24,9 +24,26 @@ If you do not yet have a strong opinion, just use it too!
 After installing Miniconda, the following lines might are likely the easiest way to get Tensorflow and CuDNN installed on your machine (_Note:_ Macs are not supported, and if you sit on a Windows machine all this might also require some modifications.):
 
 ```
-$ conda create -n 'n2v' python=3.7
+$ conda create -n 'n2v'
 $ source activate n2v
+$ conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+$ mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+$ echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 $ conda install tensorflow-gpu=2.4.1 keras=2.3.1
+$ pip install jupyter
+```
+
+If you are using Ampere GPUs that requires CUDA>=11.0 (e.g. GeForce RTX 3080), try the following steps instead.
+In this case, you need to install n2v with the option 2.
+
+```
+$ conda create -n 'n2v'
+$ source activate n2v
+$ conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
+$ mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+$ echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+$ pip install tensorflow
 $ pip install jupyter
 ```
 
@@ -41,7 +58,7 @@ $ pip install n2v
 This option is ideal if you want to edit the code. Clone the repository:
 
 ```
-$ git clone https://github.com/juglab/n2v.git
+$ git clone https://github.com/ksugar/n2v.git
 ```
 Change into its directory and install it:
 
